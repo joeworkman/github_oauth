@@ -67,6 +67,3 @@ This class has eight public functions for you to use:
 The `index.php` file included in this repo can serve as a simple example on how to get going.
 
 For a live example, take a look at my [Known Issues & Requests](http://joeworkman.net/rapidweaver/issues) page on my website that displays all issues for on of my private repos. you can even drill down into each individual issue and see all of its comments. While all of this is read-only, you could easily add modification and creation abilities using this library. 
-
-## Download
-You can download the latest version, along with all my other libraries by cloning this Git repository stored on GitHub. 
