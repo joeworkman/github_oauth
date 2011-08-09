@@ -2,7 +2,10 @@
 
 This library provides a very simple PHP interface to the GitHub oAuth API v3. Just a few lines of code and you are ready to go!
 
-You need to [register the application](https://github.com/account/applications/new) that you intend to use this library with GitHub. The OAuth keys provided will only work for the one domain that registered. Therefore, if you have multiple domains, you that you would like to run this library on, you will be required to register each domain and obtain a unique set of OAuth keys for each domain. 
+You need to [register the application](https://github.com/account/applications/new) that you intend to use this library with GitHub. The OAuth keys provided will only work for the one domain that registered. Therefore, if you have multiple domains, you that you would like to run this library on, you will be required to register each domain and obtain a unique set of OAuth keys for each domain. 
+
+I ultimately developed this library becuase I wanted to give access to my github issues of my private repositories to my customers. This way my customers can see what bugs exist and see what I am working on. Take a look at my [Known Issues & Requests](http://joeworkman.net/rapidweaver/issues) page on my website that displays all issues for on of my private repos. you can even drill down into each individual issue and see all of its comments. While all of this is read-only, you could easily add modification and creation abilities using this library. Pretty cool huh!?! 
+
 ## Requirements
   * PHP5.1+
   * cURL Extension
@@ -58,6 +61,12 @@ This class has eight public functions for you to use:
 
 `get_current_url()` really has nothing to do with OAuth but is a utility method to obtain the full URI to the current page. The library uses this in order to pass the url that GItHub needs to return to after the handshake. 
 
+
+## Examples
+
+The `index.php` file included in this repo can serve as a simple example on how to get going.
+
+For a live example, take a look at my [Known Issues & Requests](http://joeworkman.net/rapidweaver/issues) page on my website that displays all issues for on of my private repos. you can even drill down into each individual issue and see all of its comments. While all of this is read-only, you could easily add modification and creation abilities using this library. 
 
 ## Download
 You can download the latest version, along with all my other libraries by cloning this Git repository stored on GitHub. 
