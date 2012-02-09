@@ -13,7 +13,7 @@ $oauth = new GitHubOauth($scope, $client_key, $secret_key);
 ($oauth->has_access_token() or isset($_GET['code'])) ? $oauth->get_access_token() : $oauth->get_user_authorization();
 
 // Submit your request. See http://developer.github.com/v3 for more details on possible queries
-$issues = json_decode($oauth->request("issues"));
+$issues = $oauth->request("issues");
 ?>
 
 <html>

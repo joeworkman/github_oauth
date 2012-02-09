@@ -1,7 +1,7 @@
 <?php
-/* GitHubOauth Library v1.0 (http://github.com/joeworkman/github_oauth)
+/* GitHubOauth Library v1.1 (http://github.com/joeworkman/github_oauth)
  * Developed by Joe Workman (http://joeworkman.net)
- * Copyright (c) 2011, Joe Workman. All rights reserved.
+ * Copyright (c) 2011-2012, Joe Workman. All rights reserved.
  * Requires the PHP cURL extension
  */
 class GitHubOauth {
@@ -19,10 +19,10 @@ class GitHubOauth {
 	private $redirect_uri;
 	private $curl;
    
-	public function __construct($scope, $key, $secret) {
+	public function __construct($scope, $key, $secret,$token_file = './github_token') {
 		$this->scope = $scope;
 		$this->set_keys($key, $secret);
-
+		$this->token_file = $token_file;		
 		$this->redirect_uri = $this->get_current_url();
 		$this->curl = curl_init();     
 		curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, TRUE);
@@ -44,7 +44,6 @@ class GitHubOauth {
 		unlink($this->token_file);
 		return;
 	}
-	
       
 	// Redirect to GitHub and ask for user authorization. 
 	// GitHub should redirect page to the current page with our access code as a page parameter
@@ -95,16 +94,20 @@ class GitHubOauth {
 	public function request($request, $query = array()) {
 		$query['access_token'] = $this->access_token;
 		$query['per_page'] = $this->per_page;
-		$url = 'https://api.github.com/'.$request . '?' . http_build_query($query); 
-
-		return $this->http_get($url);
+		$url = 'https://api.github.com/'.$request; 
+		if (!empty($query)) {
+		    $url .= '?' . http_build_query($query); 
+		}
+		return json_decode($this->http_get($url));
 	}
 	public function post_request($request, $data = array(), $query = array()) {
 		$query['access_token'] = $this->access_token;
 		$query['per_page'] = $this->per_page;
-		$url = 'https://api.github.com/'.$request . '?' . http_build_query($query); 
-		
-		return $this->http_post($url, $data);
+		$url = 'https://api.github.com/'.$request; 
+		if (!empty($query)) {
+		    $url .= '?' . http_build_query($query); 
+		}		
+		return json_decode($this->http_post($url, json_encode($data)));
 	}
 
 	// Get the current page url
@@ -142,8 +145,7 @@ class GitHubOauth {
 	private function http_post($url, $data = array()) {
 		curl_setopt($this->curl, CURLOPT_POST, TRUE);
 		curl_setopt($this->curl, CURLOPT_POST, count($data));
-		curl_setopt($this->curl, CURLOPT_POSTFIELDS, http_build_query($data));		
-		
+		curl_setopt($this->curl, CURLOPT_POSTFIELDS, $data);
 		return $this->_request($url);
 	}
 	
