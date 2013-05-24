@@ -152,6 +152,7 @@ class GitHubOauth {
 	private function _request($url) {
 		curl_setopt($this->curl, CURLOPT_URL, $url);
 		curl_setopt($this->curl, CURLINFO_HEADER_OUT, true);
+		curl_setopt($this->curl, CURLOPT_USERAGENT, 'My GitHub App');
 		
 		return curl_exec($this->curl);
 	}
